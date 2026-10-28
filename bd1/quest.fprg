@@ -1,0 +1,155 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="4.2">
+    <attributes>
+        <attribute name="name" value="quest2"/>
+        <attribute name="authors" value="khulan"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2026-10-28 12:30:00 PM"/>
+        <attribute name="created" value="a2h1bGFuO0tIVUxBTi1HQU5CT0xEUzsyMDI2LTEwLTI4OzEwOjM4OjE5IEFNOzI5OTc="/>
+        <attribute name="edited" value="a2h1bGFuO0tIVUxBTi1HQU5CT0xEUzsyMDI2LTEwLTI4OzEyOjMwOjAwIFBNOzEwOzMxNTI="/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="n" type="Integer" array="False" size=""/>
+            <declare name="i" type="Integer" array="False" size=""/>
+            <declare name="score, credit, points, totalPoints, totalCredit, gpa, max1, max2, max3" type="Real" array="False" size=""/>
+            <declare name="grade" type="String" array="False" size=""/>
+            <assign variable="totalPoints" expression="0"/>
+            <assign variable="totalCredit" expression="0"/>
+            <assign variable="max1" expression="0"/>
+            <assign variable="max2" expression="0"/>
+            <assign variable="max3" expression="0"/>
+            <assign variable="grade" expression="&quot;&quot;"/>
+            <assign variable="points" expression="0"/>
+            <do expression="n &lt; 5 OR n &gt; 10">
+                <output expression="&quot;&#1061;&#1080;&#1095;&#1101;&#1101;&#1083;&#1080;&#1081;&#1085; &#1090;&#1086;&#1086; (5-10): &quot;" newline="True"/>
+                <input variable="n"/>
+            </do>
+            <call expression="PrintHeader()"/>
+            <assign variable="i" expression="1"/>
+            <while expression="i &lt;= n">
+                <do expression="score &lt; 0 OR score &gt; 100">
+                    <output expression="&quot;&#1054;&#1085;&#1086;&#1086; (0-100): &quot;" newline="True"/>
+                    <input variable="score"/>
+                </do>
+                <do expression="credit &lt; 1 OR credit &gt; 6">
+                    <output expression="&quot;&#1050;&#1088;&#1077;&#1076;&#1080;&#1090; (1-6): &quot;" newline="True"/>
+                    <input variable="credit"/>
+                </do>
+                <assign variable="grade" expression="GetGrade(score)"/>
+                <assign variable="points" expression="GetPoints(score)"/>
+                <assign variable="totalPoints" expression="totalPoints + points * credit"/>
+                <assign variable="totalCredit" expression="totalCredit + credit"/>
+                <if expression="score &gt; max1">
+                    <then>
+                        <assign variable="max3" expression="max2"/>
+                        <assign variable="max2" expression="max1"/>
+                        <assign variable="max1" expression="score"/>
+                    </then>
+                    <else>
+                        <if expression="score &gt; max2">
+                            <then>
+                                <assign variable="max3" expression="max2"/>
+                                <assign variable="max2" expression="score"/>
+                            </then>
+                            <else>
+                                <if expression="score &gt; max3">
+                                    <then>
+                                        <assign variable="max3" expression="score"/>
+                                    </then>
+                                    <else/>
+                                </if>
+                            </else>
+                        </if>
+                    </else>
+                </if>
+                <output expression="i &amp; &quot; | &quot; &amp; score &amp; &quot; | &quot; &amp; grade &amp; &quot; | &quot; &amp; credit" newline="True"/>
+                <assign variable="i" expression="i + 1"/>
+            </while>
+            <assign variable="gpa" expression="totalPoints / totalCredit"/>
+            <output expression="&quot;&#1043;&#1086;&#1083;&#1095; &#1076;&#1199;&#1085;: &quot; &amp; gpa" newline="True"/>
+            <output expression="&quot;&#1064;&#1080;&#1083;&#1076;&#1101;&#1075; 3 &#1086;&#1085;&#1086;&#1086;: &quot; &amp; max1 &amp; &quot;, &quot; &amp; max2 &amp; &quot;, &quot; &amp; max3" newline="True"/>
+        </body>
+    </function>
+    <function name="GetGrade" type="String" variable="grade">
+        <parameters>
+            <parameter name="score" type="Real" array="False"/>
+        </parameters>
+        <body>
+            <declare name="grade" type="String" array="False" size=""/>
+            <if expression="score &gt;= 90">
+                <then>
+                    <assign variable="grade" expression="&quot;A&quot;"/>
+                </then>
+                <else>
+                    <if expression="score &gt;= 80">
+                        <then>
+                            <assign variable="grade" expression="&quot;B&quot;"/>
+                        </then>
+                        <else>
+                            <if expression="score &gt;= 70">
+                                <then>
+                                    <assign variable="grade" expression="&quot;C&quot;"/>
+                                </then>
+                                <else>
+                                    <if expression="score &gt;= 60">
+                                        <then>
+                                            <assign variable="grade" expression="&quot;D&quot;"/>
+                                        </then>
+                                        <else>
+                                            <assign variable="grade" expression="&quot;F&quot;"/>
+                                        </else>
+                                    </if>
+                                </else>
+                            </if>
+                        </else>
+                    </if>
+                </else>
+            </if>
+        </body>
+    </function>
+    <function name="GetPoints" type="Real" variable="points">
+        <parameters>
+            <parameter name="score" type="Real" array="False"/>
+        </parameters>
+        <body>
+            <declare name="points" type="Real" array="False" size=""/>
+            <if expression="score &gt;= 90">
+                <then>
+                    <assign variable="points" expression="4.0"/>
+                </then>
+                <else>
+                    <if expression="score &gt;= 80">
+                        <then>
+                            <assign variable="points" expression="3.0"/>
+                        </then>
+                        <else>
+                            <if expression="score &gt;= 70">
+                                <then>
+                                    <assign variable="points" expression="2.0"/>
+                                </then>
+                                <else>
+                                    <if expression="score &gt;= 60">
+                                        <then>
+                                            <assign variable="points" expression="1.0"/>
+                                        </then>
+                                        <else>
+                                            <assign variable="points" expression="0"/>
+                                        </else>
+                                    </if>
+                                </else>
+                            </if>
+                        </else>
+                    </if>
+                </else>
+            </if>
+        </body>
+    </function>
+    <function name="PrintHeader" type="None" variable="">
+        <parameters/>
+        <body>
+            <output expression="&quot;&#1061;&#1080;&#1095;&#1101;&#1101;&#1083; | &#1054;&#1085;&#1086;&#1086; | &#1198;&#1089;&#1101;&#1075; | &#1050;&#1088;&#1077;&#1076;&#1080;&#1090;&quot;" newline="True"/>
+        </body>
+    </function>
+</flowgorithm>
